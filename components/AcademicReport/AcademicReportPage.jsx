@@ -37,23 +37,9 @@ const AcademicReportPage = ({ backlog }) => {
     // Function to fetch academic result
     async function fetchAcademicResult(htno, islocallycached) {
 
-        const response = await axios.get("/api/redisdata?htno=" + htno);
-        if (response.data != "Internal error") {
-            setLoading(false);
-            setResult(response.data);
-            setReportForm(false);
-            const expiryDate = new Date();
-            expiryDate.setSeconds(expiryDate.getSeconds() + 30); // Set expiry date to 30 seconds from now
-
-            const dataToStore = {
-                value: response.data,
-                expiry: expiryDate.getTime(), // Store expiry timestamp
-            };
-            localStorage.setItem(htno, JSON.stringify(dataToStore));
-            return;
-        }
+       
         //const url = "/api/academicresult?htno=" + htno;
-        const url = "https://jntuhresults.up.railway.app/api/academicresult?htno=" + htno;
+        const url = "http://localhost:8000/api/academicresult?htno=" + htno;
         try {
             //const response = await axios.get(url);
             const response = await axios.get(url, { mode: 'cors', timeout: 5000, });
