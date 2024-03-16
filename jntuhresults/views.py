@@ -14,8 +14,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-REDIS_URL = os.environ.get("REDIS_URL")
-REDIS_CLIENT = redis.from_url(str(REDIS_URL))
+
 
 
 # Class Result ----------------------------------------------------------------------
@@ -96,22 +95,12 @@ class AcademicResult(View):
         # Get the 'htno' parameter from the request and convert it to uppercase
         htno = request.GET.get("htno").upper()
 
-        # Retrieve data from Redis cache using the 'htno' as the key
-        redis_response = REDIS_CLIENT.get(htno)
+       
 
-        # Check if data exists in the Redis cache
-        if redis_response is not None:
-            # If data exists, parse the JSON response
-            data = json.loads(redis_response)
-            # redis_client.expire(htno, timedelta(seconds=1))
-            # Record the current time as the stopping time
-            stopping = time.time()
+     
+        
 
-            # Print relevant details (e.g., 'htno', student name, and execution time)
-            print(htno, data["data"]["Details"]["NAME"], stopping - starting)
-
-            # Return the data as a JSON response to the client
-            return JsonResponse(data["data"], safe=False)
+         
 
         # Check if the hall ticket number is valid
         if len(htno) != 10:
@@ -159,11 +148,7 @@ class AcademicResult(View):
             # Delete the variable 'jntuhresult' from memory
             del jntuhresult
 
-            # Store the 'result' data in the Redis cache with the 'htno' as the key.
-            REDIS_CLIENT.set(htno, json.dumps({"data": result}))
-
-            # Set an expiration time of 4 hours for the cached data associated with 'htno'.
-            REDIS_CLIENT.expire(htno, timedelta(hours=1))
+           
 
             # Return the result
             return JsonResponse(result, safe=False)

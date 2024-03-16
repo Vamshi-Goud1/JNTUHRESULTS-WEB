@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-redis_url = os.environ.get("REDIS_URL")
-redis_client = redis.from_url(str(redis_url))
+
 
 
 def get_notifications():
@@ -65,8 +64,6 @@ def get_notifications():
                 print(result, e)
         results = new_results
         results.sort(key=lambda x: x["formatted_date"], reverse=True)
-        redis_client.set("notifications", json.dumps({"data": results}))
-        redis_client.expire("notifications", timedelta(minutes=120))
         return results
     except Exception as e:
         print(e)

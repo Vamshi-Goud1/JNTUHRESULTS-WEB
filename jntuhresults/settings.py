@@ -71,7 +71,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "jntuhresults.wsgi.application"
 
 
 # Password validation

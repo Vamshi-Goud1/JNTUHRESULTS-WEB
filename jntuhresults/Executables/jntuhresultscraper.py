@@ -513,3 +513,5 @@ class ResultScraper:
             return asyncio.run(self.scrape_all_results())
         except:
             return None
+
+  
