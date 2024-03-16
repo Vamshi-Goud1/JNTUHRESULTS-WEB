@@ -39,7 +39,7 @@ const AcademicReportPage = ({ backlog }) => {
 
        
         //const url = "/api/academicresult?htno=" + htno;
-        const url = "http://localhost:8000/api/academicresult?htno=" + htno;
+        const url = "http://127.0.0.1:8000/api/academicresult?htno=" + htno;
         try {
             //const response = await axios.get(url);
             const response = await axios.get(url, { mode: 'cors', timeout: 5000, });
